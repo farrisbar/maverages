@@ -1,0 +1,22 @@
+{
+  "name": "maverages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.2.2",
+    "typescript": "^4.8.4"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html", "text"],
+    "verbose": true
+  }
+}
