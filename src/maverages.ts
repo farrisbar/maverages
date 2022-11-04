@@ -4,7 +4,6 @@ export function mavg(window:number, input: number[]) : number[] {
     let count = 0;
     let N: number;
     let w: number[];
-    let output: number[];
 
     // Validate the window argument:
     // - must be specified (defaults to 1)
@@ -19,12 +18,11 @@ export function mavg(window:number, input: number[]) : number[] {
     // Validate the input array
     if(input && Array.isArray(input)){
         N = input.length;
-        output = new Array(N);
-        w = new Array(window);
+        w = [];
     } else {
         N = 0;
         input = [];
-        output = [];
+        w = [];
     }
 
     // Perform an outer pass through the array
@@ -36,12 +34,18 @@ export function mavg(window:number, input: number[]) : number[] {
 
         // If window is full, remove one element
         if(count === window){
-            accumulator -= clamp(input[i - window], window);
+            let savedInput = w.shift()
+            if(savedInput === undefined){
+                throw Error(`Unable to find last element in window`)
+            }
+            accumulator -= savedInput
             count -= 1;
         }
 
         // Add current element to the accumulator
-        accumulator += clamp(input[i], window);
+        let clampedInput = clamp(input[i], window);
+        accumulator += clampedInput;
+        w.push(clampedInput);
         count += 1;
 
 
@@ -49,10 +53,10 @@ export function mavg(window:number, input: number[]) : number[] {
         //---------------------
         // Compute output
         //---------------------
-        output[i] = accumulator / count;
+        input[i] = accumulator / count;
     }
 
-    return output;
+    return input;
 }
 
 function clamp(a:number, w:number):number{
