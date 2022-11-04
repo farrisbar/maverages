@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --coverage"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --coverage && serve coverage",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,14 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["json", "html", "text"],
+    "coverageReporters": [
+      "json",
+      "html",
+      "text"
+    ],
     "verbose": true
+  },
+  "dependencies": {
+    "serve": "^14.0.1"
   }
 }
